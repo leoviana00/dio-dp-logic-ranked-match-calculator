@@ -1,5 +1,5 @@
 
-// Matris de heros com suas vitorias e derrotas
+// Matriz de heros com suas vitorias e derrotas
 let listHeros = [ 
     ["Arqueiro", 34, 56],
     ["Elfo Negro", 45, 100],
