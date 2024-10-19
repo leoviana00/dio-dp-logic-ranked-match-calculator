@@ -1,64 +1,42 @@
 
-// Matriz com informações dos heros
-let report = [ 
+// Matris de heros com suas vitorias e derrotas
+let listHeros = [ 
     ["Arqueiro", 34, 56],
     ["Elfo Negro", 45, 100],
     ["Berserk", 102, 21],
     ["Gon", 302, 44],
     ["Takemishi", 23, 0],
-    ["Rocky", , ]
+    ["Rocky",15, 1 ]
 ]
 
+// Laço para processamento dos heróis utilizando a função que calcula o level do hero baseado no saldo de partidades (vitorias - derrotas)
+for (let heroXp = 0; heroXp < listHeros.length; heroXp ++){
+    let nameHero = listHeros[heroXp][0]
+    let victoryHero = listHeros[heroXp][1]
+    let defeatHero = listHeros[heroXp][2]
 
-//Função principal
-getListHero(report)
+    let saldoMatchs = victoryHero - defeatHero
+    let levelHero = calcLevelHero(saldoMatchs)
 
-// Função para estruturação dos dados dos heros pegos na matriz e chama outras funções para calculo de saldo de vitorias e classificar o hero.
-function getListHero(report){
-    for (i in report){
+    console.log(`O Herói de nome ${nameHero} está no nível ${levelHero}`);
 
-        let player = report[i][0]
-        let victory = report[i][1]
-        let defeat = report[i][2]
+}
 
-        let ranked = calculateRankedMatche(victory, defeat)
-        let level = getClassRanked(ranked)
-        
-        console.log("Herói " + player + " de saldo de " + ranked + ", está no nível de " + level)
-        
+// Calcular o level com base no saldo de vitórias
+function calcLevelHero(saldoMatchs) {
+    const levels = {
+      Ferro: { min: 0, max: 10 },
+      Bronze: { min: 11, max: 20 },
+      Prata: { min: 21, max: 50 },
+      Ouro: { min: 51, max: 80 },
+      Diamante: { min: 81, max: 90 },
+      Lendário: { min: 91, max: 100 },
+      Imortal: { min: 101, max: Infinity }
+    };
+
+    for (level in levels){
+        if(saldoMatchs >= levels[level].min && saldoMatchs <= levels[level].max || saldoMatchs <= 10) {
+            return level;
+        }
     }
-    return getListHero
-    
 }
-
-
-//Função para calcular o saldo de vitorias
-function calculateRankedMatche(victory, defeat){
-    let winningBalance = victory - defeat
-    return winningBalance
-}
-
-//Função que classificar o hero de acordo com o saldo de vitorias
-function getClassRanked(ranked){
-   
-    if (ranked < 10){
-        level = "Ferro"
-    } else if (ranked >= 11 && ranked <=20){
-        level = "Bronze"
-    } else if (ranked >= 21 && ranked <=50){
-        level = "Prata"
-    } else if (ranked >= 51 && ranked <=80){
-        level = "Ouro"
-    } else if (ranked >= 81 && ranked <=90){
-        level = "Diamante"
-    } else if (ranked >= 91 && ranked <=100){
-        level = "Lendário"
-    } else if (ranked >= 101){
-        level = "Imortal"
-    } else {
-        level = "Undefined"
-    }
-    return level
-}
-
-
