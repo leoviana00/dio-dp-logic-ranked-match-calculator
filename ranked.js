@@ -1,28 +1,27 @@
 
-// Matriz de heros com suas vitorias e derrotas
-let listHeros = [ 
-    ["Arqueiro", 34, 56],
-    ["Elfo Negro", 45, 100],
-    ["Berserk", 102, 21],
-    ["Gon", 302, 44],
-    ["Takemishi", 23, 0],
-    ["Rocky",15, 1 ]
-]
-
-// Laço para processamento dos heróis utilizando a função que calcula o level do hero baseado no saldo de partidades (vitorias - derrotas)
-for (let heroXp = 0; heroXp < listHeros.length; heroXp ++){
-    let nameHero = listHeros[heroXp][0]
-    let victoryHero = listHeros[heroXp][1]
-    let defeatHero = listHeros[heroXp][2]
-
-    let saldoMatchs = victoryHero - defeatHero
-    let levelHero = calcLevelHero(saldoMatchs)
-
-    console.log(`O Herói de nome ${nameHero} está no nível ${levelHero}`);
-
+// Json com heros, suas vitorias e derrotas
+let listHeros = {
+    name: ["Arqueiro", "Elfo Negro", "Berserk", "Kakarotto", "Kurama"],
+    matchs: {
+        0: [34, 56],
+        1: [45, 100],
+        2: [102, 21],
+        3: [307, 100],
+        4: [58, 4]
+    }
 }
 
-// Calcular o level com base no saldo de vitórias
+// Laço para processamento dos heróis utilizando a função que calcula o level do hero baseado no saldo de partidades (vitorias - derrotas)
+for (hero in listHeros.name){
+    let heroName = listHeros.name[hero]
+    let [victoryHero, defeatHero] = listHeros.matchs[hero]
+    let balanceMatchs = victoryHero - defeatHero
+    let levelHero = calcLevelHero(balanceMatchs)
+
+    console.log(`O Herói de nome ${heroName} está no nível ${levelHero}`);
+}
+
+// Laço para processamento dos heróis utilizando a função que calcula o level do hero baseado no saldo de partidades (vitorias - derrotas)
 function calcLevelHero(saldoMatchs) {
     const levels = {
       Ferro: { min: 0, max: 10 },
@@ -35,8 +34,9 @@ function calcLevelHero(saldoMatchs) {
     };
 
     for (level in levels){
+
         if(saldoMatchs >= levels[level].min && saldoMatchs <= levels[level].max || saldoMatchs <= 10) {
-            return level;
-        }
+            return level ;
+        } 
     }
 }
